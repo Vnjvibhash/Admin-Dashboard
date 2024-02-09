@@ -1,6 +1,6 @@
 import express from 'express';
 import con from '../utils/db.js';
-import jwt from 'jsonwebtoken';
+import Jwt from 'jsonwebtoken';
 
 const router = express.Router();
 
@@ -10,7 +10,7 @@ router.post('/adminlogin', (req, res) => {
         if (err) throw err;
         if (result.length > 0) {
             const email = result[0].email;
-            const token = jwt.sign(
+            const token = Jwt.sign(
                 { role: "admin", email: email },
                 'jwt_secretkey',
                 { expiresIn: '1h' }
