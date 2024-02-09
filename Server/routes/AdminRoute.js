@@ -1,6 +1,9 @@
 import express from 'express';
 import con from '../utils/db.js';
 import Jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt'
+import multer from "multer";
+import path from "path";
 
 const router = express.Router();
 
@@ -23,6 +26,21 @@ router.post('/adminlogin', (req, res) => {
     });
     console.log(req.body);
 });
+
+// image upload 
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'public/images/profile');
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + "_" + Date.now() + path.extname(file.originalname))
+    }
+})
+const upload = multer({
+    storage: storage
+})
+
+
 
 router.get('/logout', (req, res) => {
     res.clearCookie('token')
