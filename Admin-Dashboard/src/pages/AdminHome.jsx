@@ -9,9 +9,9 @@ function AdminHome() {
     const data = [
         {
             name: 'Page A',
-            uv: 4000,
+            uv: 7000,
             pv: 2400,
-            amt: 2400,
+            amt: 2000,
         },
         {
             name: 'Page B',
@@ -21,7 +21,7 @@ function AdminHome() {
         },
         {
             name: 'Page C',
-            uv: 2000,
+            uv: 5000,
             pv: 9800,
             amt: 2290,
         },
@@ -41,13 +41,13 @@ function AdminHome() {
             name: 'Page F',
             uv: 2390,
             pv: 3800,
-            amt: 2500,
+            amt: 3500,
         },
         {
             name: 'Page G',
             uv: 3490,
             pv: 4300,
-            amt: 2100,
+            amt: 6100,
         },
     ];
 
@@ -64,28 +64,28 @@ function AdminHome() {
                         <h3>PRODUCTS</h3>
                         <BsFillArchiveFill className='card_icon' />
                     </div>
-                    <h1>300</h1>
+                    <h1>365</h1>
                 </div>
                 <div className='card'>
                     <div className='card-inner'>
                         <h3>CATEGORIES</h3>
                         <BsFillGrid3X3GapFill className='card_icon' />
                     </div>
-                    <h1>12</h1>
+                    <h1>25</h1>
                 </div>
                 <div className='card'>
                     <div className='card-inner'>
                         <h3>CUSTOMERS</h3>
                         <BsPeopleFill className='card_icon' />
                     </div>
-                    <h1>33</h1>
+                    <h1>3000</h1>
                 </div>
                 <div className='card'>
                     <div className='card-inner'>
                         <h3>ALERTS</h3>
                         <BsFillBellFill className='card_icon' />
                     </div>
-                    <h1>42</h1>
+                    <h1>22</h1>
                 </div>
             </div>
 
@@ -107,6 +107,7 @@ function AdminHome() {
                         <YAxis />
                         <Tooltip />
                         <Legend />
+                        <Bar dataKey="amt" fill="#ff7300" />
                         <Bar dataKey="pv" fill="#8884d8" />
                         <Bar dataKey="uv" fill="#82ca9d" />
                     </BarChart>
@@ -129,6 +130,7 @@ function AdminHome() {
                         <YAxis />
                         <Tooltip />
                         <Legend />
+                        <Line type="monotone" dataKey="amt" stroke="#ff7300" yAxisId={0} />
                         <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
                         <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
                     </LineChart>

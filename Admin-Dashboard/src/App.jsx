@@ -10,6 +10,7 @@ import Login from './pages/Login'
 import AddUser from './pages/AddUser'
 import AdminHome from './pages/AdminHome'
 import PrivateRoute from './components/PrivateRoute'
+import Products from './pages/Products'
 
 function App() {
   return (
@@ -24,7 +25,8 @@ function App() {
           <Route path='' element={<AdminHome />} />
           <Route path='users' element={<UserDetails />} />
           <Route path='add_user' element={<AddUser />} />
-          <Route path='category' element={<Categories />} />
+          <Route path='categories' element={<Categories />} />
+          <Route path='products' element={<Products />} />
           <Route path='profile' element={<Profile />} />
         </Route>
       </Routes>
