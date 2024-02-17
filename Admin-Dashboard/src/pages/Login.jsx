@@ -11,6 +11,7 @@ const Login = () => {
     })
     const [checked, setCheckBox] = useState(false)
     const [error, setError] = useState(null)
+    
     const navigate = useNavigate()
 
     const setCheckBoxVal = (val) => {
@@ -22,10 +23,13 @@ const Login = () => {
     const handleSubmit = async (event) => {
         if (checked) {
             event.preventDefault()
-            await axios.post('http://localhost:3000/admin/adminlogin', values)
+            const formData = new FormData();
+            formData.append('email', values.email);
+            formData.append('password', values.password);
+            await axios.post('http://localhost:3000/admin/adminlogin', formData)
                 .then(result => {
                     console.log(result.data)
-                    if (result.data.loginStatus) {
+                    if (result.data.Status) {
                         localStorage.setItem("valid", true)
                         navigate('/dashboard')
                     } else {

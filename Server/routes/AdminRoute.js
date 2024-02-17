@@ -7,25 +7,35 @@ import path from "path";
 
 const router = express.Router();
 
-router.post('/adminlogin', (req, res) => {
+const mul = multer()
+
+router.post('/adminlogin', mul.any(), (req, res) => {
     const sql = 'SELECT * FROM admins WHERE email = ? AND password = ?';
     con.query(sql, [req.body.email, req.body.password], (err, result) => {
         if (err) throw err;
         if (result.length > 0) {
-            const email = result[0].email;
+            const user = { ...result[0] };
+            delete user.password;
             const token = Jwt.sign(
-                { role: "admin", email: email },
+                { role: "admin", email: user.email },
                 'jwt_secretkey',
                 { expiresIn: '1h' }
             );
             res.cookie('token', token);
-            return res.json({ loginStatus: true });
+            return res.json({ Status: true, bearer: token, user: user });
         } else {
-            return res.json({ loginStatus: false, Error: 'Invalid Email or Password' });
+            return res.json({ Status: false, Error: 'Invalid Email or Password' });
         }
     });
-    console.log(req.body);
 });
+
+router.get('/category', (req, res) => {
+    const sql = "SELECT * FROM categories";
+    con.query(sql, (err, result) => {
+        if (err) return res.json({ Status: false, Error: "Query Error" })
+        return res.json({ Status: true, data: result })
+    })
+})
 
 // image upload 
 const storage = multer.diskStorage({

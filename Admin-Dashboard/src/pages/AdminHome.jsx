@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 import { BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsFillBellFill }
     from 'react-icons/bs'
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line }
     from 'recharts';
+import axios from 'axios'
 
 function AdminHome() {
 
@@ -51,6 +52,22 @@ function AdminHome() {
         },
     ];
 
+    const [categorySize, setCategorySize] = useState(0)
+
+    useEffect(() => {
+        getData();
+    }, []);
+    
+    const getData = () => {
+        axios.get('http://localhost:3000/admin/category')
+            .then(result => {
+                if (result.data.Status) {
+                    setCategorySize(result.data.data.length);
+                } else {
+                    console.log(result.data.Error)
+                }
+            })
+    };
 
     return (
         <main className='main-container'>
@@ -71,7 +88,7 @@ function AdminHome() {
                         <h3>CATEGORIES</h3>
                         <BsFillGrid3X3GapFill className='card_icon' />
                     </div>
-                    <h1>25</h1>
+                    <h1>{categorySize}</h1>
                 </div>
                 <div className='card'>
                     <div className='card-inner'>
