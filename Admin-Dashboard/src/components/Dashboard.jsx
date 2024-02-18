@@ -1,14 +1,20 @@
 import React from "react";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import axios from "axios";
 
 const Dashboard = () => {
   const navigate = useNavigate()
-  
+  const location = useLocation();
+
   axios.defaults.withCredentials = true
   const handleLogout = () => {
-    axios.get('http://localhost:3000/admin/logout')
+    axios.get('http://localhost:3000/auth/logout', { 
+      withCredentials: true,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      }
+    })
       .then(result => {
         if (result.data.Status) {
           localStorage.removeItem("valid")
@@ -16,7 +22,7 @@ const Dashboard = () => {
         }
       })
   }
-  
+
   return (
     <div className="container-fluid">
       <div className="row flex-nowrap">
@@ -31,72 +37,64 @@ const Dashboard = () => {
               </span>
             </Link>
             <ul
-              className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
+              className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start w-100"
               id="menu"
             >
               <li className="w-100">
                 <Link
                   to="/dashboard"
-                  className="nav-link text-white px-0 align-middle"
+                  className={`nav-link text-white px-0 align-middle ${location.pathname === '/dashboard' ? 'active' : ''}`}
                 >
-                  <i className="fs-4 bi-speedometer2 ms-2"></i>
-                  <span className="ms-2 d-none d-sm-inline">Dashboard</span>
+                  <i className="fs-4 bi-speedometer2 ms-2 me-2"></i>Dashboard
                 </Link>
               </li>
               <li className="w-100">
                 <Link
                   to="/dashboard/users"
-                  className="nav-link px-0 align-middle text-white"
+                  className={`nav-link px-0 align-middle text-white ${location.pathname === '/dashboard/users' ? 'active' : ''}`}
                 >
-                  <i className="fs-4 bi-people ms-2"></i>
-                  <span className="ms-2 d-none d-sm-inline">
-                    Users
-                  </span>
+                  <i className="fs-4 bi-people ms-2 me-2"></i>Users
                 </Link>
               </li>
               <li className="w-100">
                 <Link
                   to="/dashboard/categories"
-                  className="nav-link px-0 align-middle text-white"
+                  className={`nav-link px-0 align-middle text-white ${location.pathname === '/dashboard/categories' ? 'active' : ''}`}
                 >
-                  <i className="fs-4 bi-columns ms-2"></i>
-                  <span className="ms-2 d-none d-sm-inline">Categories</span>
+                  <i className="fs-4 bi-columns ms-2 me-2"></i>Categories
                 </Link>
               </li>
               <li className="w-100">
                 <Link
                   to="/dashboard/products"
-                  className="nav-link px-0 align-middle text-white"
+                  className={`nav-link px-0 align-middle text-white ${location.pathname === '/dashboard/products' ? 'active' : ''}`}
                 >
-                  <i className="fs-4 bi-archive ms-2"></i>
-                  <span className="ms-2 d-none d-sm-inline">Products</span>
+                  <i className="fs-4 bi-archive ms-2 me-2"></i>Products
                 </Link>
               </li>
               <li className="w-100">
                 <Link
                   to="/dashboard/profile"
-                  className="nav-link px-0 align-middle text-white"
+                  className={`nav-link px-0 align-middle text-white ${location.pathname === '/dashboard/profile' ? 'active' : ''}`}
                 >
-                  <i className="fs-4 bi-person ms-2"></i>
-                  <span className="ms-2 d-none d-sm-inline">Profile</span>
+                  <i className="fs-4 bi-person ms-2 me-2"></i>Profile
                 </Link>
               </li>
               <li className="w-100" onClick={handleLogout}>
-              <Link
+                <Link
                   className="nav-link px-0 align-middle text-white"
                 >
-                  <i className="fs-4 bi-power ms-2"></i>
-                  <span className="ms-2 d-none d-sm-inline">Logout</span>
+                  <i className="fs-4 bi-power ms-2 me-2"></i>Logout
                 </Link>
               </li>
             </ul>
           </div>
         </div>
         <div className="col p-0 m-0">
-            <div className="p-2 d-flex justify-content-center shadow">
-                <h4>User Management System</h4>
-            </div>
-            <Outlet />
+          <div className="p-2 d-flex justify-content-center shadow">
+            <h4>User Management System</h4>
+          </div>
+          <Outlet />
         </div>
       </div>
     </div>

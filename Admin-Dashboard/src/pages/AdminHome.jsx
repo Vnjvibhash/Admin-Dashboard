@@ -59,7 +59,12 @@ function AdminHome() {
     }, []);
     
     const getData = () => {
-        axios.get('http://localhost:3000/admin/category')
+        axios.get('http://localhost:3000/api/category',{
+            withCredentials: true,
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+            }
+        })
             .then(result => {
                 if (result.data.Status) {
                     setCategorySize(result.data.data.length);

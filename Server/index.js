@@ -4,22 +4,8 @@ import { adminRouter } from './routes/AdminRoute.js';
 
 
 const app = express();
-// app.use(cors(
-//     {
-//         origin: 'http://localhost:3000',
-//         methods: ['GET', 'POST', 'PUT', 'DELETE'],
-//         credentials: true
-//     }
-// ));
 
-// app.use((req, res, next) => {
-//     res.setHeader("Access-Control-Allow-Origin", "*");
-//     res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
-//     res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-//     next();
-// });
-
-var whitelist = ['http://localhost:5173', 'http://127.0.0.1:5173']
+var whitelist = ['http://localhost:5173', 'http://127.0.0.1:5173', 'http://localhost:3000']
 var corsOptions = {
     origin: function (origin, callback) {
         if (whitelist.indexOf(origin) !== -1) {
@@ -32,10 +18,11 @@ var corsOptions = {
     credentials: true
 }
 app.use(cors(corsOptions));
+// app.use(cors());
 
 app.use(express.json());
 
-app.use('/admin', adminRouter);
+app.use('/api', adminRouter);
 
 app.listen(3000, () => {
     console.log('Server is running on port 3000');

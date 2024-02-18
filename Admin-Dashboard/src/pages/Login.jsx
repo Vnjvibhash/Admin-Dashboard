@@ -26,12 +26,22 @@ const Login = () => {
             const formData = new FormData();
             formData.append('email', values.email);
             formData.append('password', values.password);
-            await axios.post('http://localhost:3000/admin/adminlogin', formData)
+            await axios.post('http://localhost:3000/api/auth', formData)
                 .then(result => {
                     console.log(result.data)
                     if (result.data.Status) {
                         localStorage.setItem("valid", true)
-                        navigate('/dashboard')
+                        if (result.data.user.role === 1) {
+                            localStorage.setItem("role", 1)
+                            navigate('/dashboard')
+                        } else if (result.data.user.role === 2) {
+                            localStorage.setItem("role", 2)
+                            navigate('/dashboard')
+                        } else {
+                            localStorage.setItem("role", 3)
+                            // navigate('/home')
+                        }
+
                     } else {
                         setError(result.data.Error)
                     }

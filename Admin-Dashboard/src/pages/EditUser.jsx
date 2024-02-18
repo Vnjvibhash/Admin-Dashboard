@@ -1,46 +1,20 @@
-import axios from "axios";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
 
-const AddUser = () => {
+const EditUser = ({ userId }) => {
     const [user, setUser] = useState({
-        role: 3,
         name: "",
         email: "",
-        mobile: "",
         password: "",
-        address: "",
         dob: "",
+        address: "",
         profession: "",
         department: "",
         image: "",
     });
     const navigate = useNavigate()
 
-    const handleSubmit = async (event) => {
-        event.preventDefault()
-        console.log(user);
-        const formData = new FormData();
-        formData.append('role', user.role);
-        formData.append('name', user.name);
-        formData.append('email', user.email);
-        formData.append('mobile', user.mobile);
-        formData.append('password', user.password);
-        formData.append('address', user.address);
-        formData.append('dob', user.dob);
-        formData.append('profile_pic', user.image);
-        formData.append('profession', user.profession);
-        formData.append('department', user.department);
-        await axios.post('http://localhost:3000/admin/add_user', formData)
-            .then(result => {
-                if (result.data.Status) {
-                    console.log(result.data);
-                    // navigate('/dashboard/users');
-                } else {
-                    alert(result.data.Error);
-                }
-            })
-            .catch(err => console.log(err))
+    const handleSubmit = (e) => {
+        e.preventDefault();
     }
 
     return (
@@ -49,23 +23,8 @@ const AddUser = () => {
                 <h3 className="text-center">Add User</h3>
                 <form className="row g-1" onSubmit={handleSubmit}>
                     <div className="col-12">
-                        <label htmlFor="inputRole" className="form-label">
-                            Role <span className="text-danger">*</span>
-                        </label>
-                        <input
-                            type="text"
-                            className="form-control rounded-0"
-                            id="inputRole"
-                            placeholder="0"
-                            maxLength={1}
-                            onChange={(e) =>
-                                setUser({ ...user, role: e.target.value })
-                            }
-                        />
-                    </div>
-                    <div className="col-12">
                         <label htmlFor="inputName" className="form-label">
-                            Name <span className="text-danger">*</span>
+                            Name <spam className="text-danger">*</spam>
                         </label>
                         <input
                             type="text"
@@ -78,13 +37,13 @@ const AddUser = () => {
                         />
                     </div>
                     <div className="col-12">
-                        <label htmlFor="inputEmail" className="form-label">
-                            Email <span className="text-danger">*</span>
+                        <label htmlFor="inputEmail4" className="form-label">
+                            Email <spam className="text-danger">*</spam>
                         </label>
                         <input
                             type="email"
                             className="form-control rounded-0"
-                            id="inputEmail"
+                            id="inputEmail4"
                             placeholder="Enter Email"
                             autoComplete="off"
                             onChange={(e) =>
@@ -93,36 +52,20 @@ const AddUser = () => {
                         />
                     </div>
                     <div className="col-12">
-                        <label htmlFor="inputMobile" className="form-label">
-                            Mobile Number <span className="text-danger">*</span>
-                        </label>
-                        <input
-                            type="text"
-                            className="form-control rounded-0"
-                            id="inputMobile"
-                            maxLength={10}
-                            placeholder="+91-7762974716"
-                            autoComplete="off"
-                            onChange={(e) =>
-                                setUser({ ...user, mobile: e.target.value })
-                            }
-                        />
-                    </div>
-                    <div className="col-12">
-                        <label htmlFor="inputPassword" className="form-label">
-                            Password <span className="text-danger">*</span>
+                        <label htmlFor="inputPassword4" className="form-label">
+                            Password <spam className="text-danger">*</spam>
                         </label>
                         <input
                             type="password"
                             className="form-control rounded-0"
-                            id="inputPassword"
+                            id="inputPassword4"
                             placeholder="Enter Password"
                             onChange={(e) =>
                                 setUser({ ...user, password: e.target.value })
                             }
                         />
                         <label htmlFor="inputDOB" className="form-label">
-                            Date of Birth <span className="text-danger">*</span>
+                            Date of Birth <spam className="text-danger">*</spam>
                         </label>
                         <input
                             type="date"
@@ -137,7 +80,7 @@ const AddUser = () => {
                     </div>
                     <div className="col-12">
                         <label htmlFor="inputAddress" className="form-label">
-                            Address <span className="text-danger">*</span>
+                            Address <spam className="text-danger">*</spam>
                         </label>
                         <input
                             type="text"
@@ -166,7 +109,7 @@ const AddUser = () => {
                         />
                     </div>
                     <div className="col-12">
-                        <label htmlFor="inputDepartment" className="form-label">
+                        <label htmlFor="inputAddress" className="form-label">
                             Department
                         </label>
                         <input
@@ -182,7 +125,7 @@ const AddUser = () => {
                     </div>
                     <div className="col-12 mb-3">
                         <label htmlFor="inputGroupFile01" className="form-label">
-                            Select Image <span className="text-danger">*</span>
+                            Select Image <spam className="text-danger">*</spam>
                         </label>
                         <input
                             type="file"
@@ -203,4 +146,4 @@ const AddUser = () => {
     );
 };
 
-export default AddUser;
+export default EditUser;

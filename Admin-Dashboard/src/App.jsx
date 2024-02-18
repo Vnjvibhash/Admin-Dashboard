@@ -4,6 +4,8 @@ import { useState } from 'react'
 import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom'
 import Dashboard from './components/Dashboard'
 import UserDetails from './pages/UserDetails'
+import EditUser from './pages/EditUser'
+import Users from './pages/Users'
 import Categories from './pages/Categories'
 import Profile from './pages/Profile'
 import Login from './pages/Login'
@@ -23,7 +25,9 @@ function App() {
           </PrivateRoute>
         }>
           <Route path='' element={<AdminHome />} />
-          <Route path='users' element={<UserDetails />} />
+          <Route path='users' element={<Users />} />
+          <Route path='edit_user' element={<EditUser />} />
+          <Route path='user_details' element={<UserDetails />} />
           <Route path='add_user' element={<AddUser />} />
           <Route path='categories' element={<Categories />} />
           <Route path='products' element={<Products />} />
