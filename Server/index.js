@@ -6,21 +6,26 @@ import { adminRouter } from './routes/AdminRoute.js';
 const app = express();
 
 var whitelist = ['http://localhost:5173', 'http://127.0.0.1:5173', 'http://localhost:3000']
-var corsOptions = {
-    origin: function (origin, callback) {
-        if (whitelist.indexOf(origin) !== -1) {
-            callback(null, true)
-        } else {
-            callback(new Error('Not allowed by CORS'))
-        }
-    },
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true
+var corsOptionsDelegate = function (req, callback) {
+    var corsOptions;
+    if (whitelist.indexOf(req.header('Origin')) !== -1) {
+      corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
+    } else {
+      corsOptions = { origin: false } // disable CORS for this request
+    }
+    corsOptions = {
+        ...corsOptions,
+        methods: ['GET', 'POST', 'PUT', 'DELETE'],
+        credentials: true
+    }
+    callback(null, corsOptions) // callback expects two parameters: error and options
 }
-app.use(cors(corsOptions));
+
+app.use(cors(corsOptionsDelegate));
 // app.use(cors());
 
 app.use(express.json());
+app.use(express.static('public'));
 
 app.use('/api', adminRouter);
 

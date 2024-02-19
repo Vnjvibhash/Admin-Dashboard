@@ -62,7 +62,7 @@ const Users = () => {
                                 <td>{e.name}</td>
                                 <td>
                                     <img
-                                        src={`http://localhost:3000/static/images/profile/` + e.profile_pic}
+                                        src={`http://localhost:3000/images/profile/` + e.profile_pic}
                                         className="user_image"
                                     />
                                 </td>

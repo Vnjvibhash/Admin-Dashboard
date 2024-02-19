@@ -9,8 +9,6 @@ const router = express.Router();
 
 const mul = multer()
 
-router.use('/static', express.static('public'))
-
 router.post("/auth", mul.any(), (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
